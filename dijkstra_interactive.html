@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>工科賽｜Dijkstra 萬用解互動教室</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1221;--panel:#121f34;--panel2:#192941;--border:#30415c;--text:#edf5ff;--muted:#a5b8d2;--blue:#60a5fa;--teal:#5eead4;--amber:#fbbf24;--pink:#fda4af;--shadow:0 18px 50px #0004}*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,'Noto Sans TC','Microsoft JhengHei',sans-serif;background:radial-gradient(circle at 85% 0,#183557 0,transparent 33%),var(--bg);color:var(--text);line-height:1.65}button,input,textarea,select{font:inherit}button{cursor:pointer}a{color:var(--teal)}header{max-width:1280px;margin:auto;padding:35px 22px 18px}.eyebrow{font-size:13px;color:var(--teal);letter-spacing:.14em;font-weight:750}h1{font-size:clamp(26px,4vw,43px);line-height:1.2;margin:12px 0}h2{font-size:22px;margin:0 0 14px}h3{font-size:17px;margin:16px 0 9px}p{margin:7px 0}header p{color:var(--muted);max-width:880px}.pill{display:inline-flex;border:1px solid var(--border);padding:5px 11px;border-radius:100px;font-size:12px;color:var(--muted);margin-right:6px;margin-top:8px}.wrap{max-width:1280px;margin:auto;padding:10px 22px 50px}.tabs{display:flex;flex-wrap:wrap;gap:9px;margin:13px 0 20px}.tab{background:var(--panel);border:1px solid var(--border);color:var(--muted);border-radius:12px;padding:10px 15px;font-weight:650}.tab.active{background:#17426b;color:white;border-color:#5ba4e9}.layout{display:grid;grid-template-columns:minmax(300px,.93fr) minmax(420px,1.45fr);gap:18px}.card{border:1px solid var(--border);background:var(--panel);border-radius:17px;padding:19px;box-shadow:var(--shadow)}.wide{grid-column:1/-1}.subtle{color:var(--muted);font-size:14px}.key{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#263c57;padding:2px 6px;border-radius:5px;color:#ccf4ff}.note{border-left:3px solid var(--teal);background:#1a3440;padding:11px 14px;border-radius:7px;margin:14px 0}.warn{border-left-color:var(--amber);background:#40321e}textarea{background:#091629;color:#eaf3ff;border:1px solid #49617f;border-radius:10px;width:100%;min-height:190px;padding:12px;resize:vertical;font-family:Consolas,monospace;font-size:14px;line-height:1.65}label{font-size:14px;color:var(--muted);font-weight:650;display:block;margin-bottom:6px}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.btn{background:#2364a1;border:1px solid #4b96d0;color:white;border-radius:9px;padding:8px 13px;font-weight:700}.btn.alt{background:#263a53;border-color:#405a77}.btn:disabled{opacity:.4;cursor:not-allowed}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}.stat{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:10px}.stat strong{display:block;font-size:21px;color:var(--teal);line-height:1.2}.stat small{color:var(--muted)}#graph{width:100%;height:340px;background:radial-gradient(#304561 1px,transparent 1px);background-size:20px 20px;border:1px solid var(--border);border-radius:12px}svg text{font-family:system-ui,sans-serif}table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px 10px;border-bottom:1px solid var(--border);text-align:left}th{color:var(--muted);font-weight:650}td code,code{font-family:Consolas,ui-monospace,monospace}.scroll{overflow-x:auto}.codebox{position:relative}pre{font-family:Consolas,ui-monospace,monospace;font-size:13px;white-space:pre;overflow:auto;background:#071222;color:#d4e9ff;border:1px solid #31425c;border-radius:12px;padding:19px 16px;line-height:1.75;margin:8px 0 0;tab-size:4}.copy{position:absolute;right:11px;top:19px}.explain-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.mini{background:var(--panel2);border:1px solid var(--border);border-radius:11px;padding:13px}.mini b{color:var(--teal)}.actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:10px 0}.step{color:var(--amber);font-weight:750}.queue{font:13px Consolas,monospace;color:#b8e7ff;overflow-wrap:anywhere}.error{color:var(--pink);font-size:14px;min-height:20px}.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{border:1px solid #406582;background:#163753;color:#d4eaff;border-radius:8px;padding:4px 9px;font-size:13px}.lesson{display:none}.lesson.active{display:block}.quizopt{width:100%;text-align:left;background:var(--panel2);color:var(--text);border:1px solid var(--border);padding:12px;border-radius:9px;margin-top:8px}.quizopt:hover{border-color:var(--teal)}.result{margin-top:12px;padding:12px;border-radius:9px;background:#143c3f}.topmargin{margin-top:20px}.small{font-size:13px}.footer{color:var(--muted);font-size:13px;text-align:center;padding:14px}select,input[type=number]{background:#0a1b30;color:white;border:1px solid #506581;border-radius:8px;padding:7px 9px}input[type=number]{width:75px}.hide{display:none}.badge{display:inline-block;background:#19466a;color:#bdddff;font-size:12px;border-radius:7px;padding:2px 8px;margin-left:5px}details{border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin:8px 0;background:#13243a}summary{cursor:pointer;font-weight:700}ul{padding-left:22px;margin:8px 0}li{margin:5px 0}@media(max-width:900px){.layout{grid-template-columns:1fr}.explain-grid{grid-template-columns:1fr}#graph{height:290px}header{padding-top:24px}}@media(max-width:530px){.wrap{padding:8px 12px 35px}header{padding-left:12px;padding-right:12px}.card{padding:13px}.stats{grid-template-columns:1fr 1fr}.tab{padding:8px 10px}}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">C# · 工科賽演算法訓練</div><h1>Dijkstra 萬用解｜互動式拆解教室</h1><p>一份核心程式，應對無權圖、加權圖、有向圖、迷宮、多起點與路徑回溯。親手調整邊權、逐步觀察優先佇列和 <code>dist / parent</code> 的變化。</p><span class="pill">不需安裝套件</span><span class="pill">離線可用</span><span class="pill">內建測試資料</span><span class="pill">C# .NET 6+</span></header>
+<main class="wrap">
+<div class="tabs" role="tablist"><button class="tab active" data-tab="lab">① 動手跑 Dijkstra</button><button class="tab" data-tab="code">② 拆解 C# 完整模板</button><button class="tab" data-tab="transform">③ 八種考場變形</button><button class="tab" data-tab="quiz">④ 測驗自己</button></div>
+<section class="lesson active" id="lab"><div class="layout">
+<div class="card"><h2>選一組測資</h2><div class="chips" id="presets"></div><p class="subtle">格式：每行 <span class="key">起點 終點 成本</span>；節點使用 0-based，權重必須 ≥ 0。<strong>無向圖</strong>會自動加入反方向的邊。</p><label for="edgeInput">圖的邊（可直接修改）</label><textarea id="edgeInput" spellcheck="false"></textarea><div class="row" style="margin:10px 0"><label style="margin:0">節點數 <input type="number" id="nodes" min="1" max="40" value="6"></label><label style="margin:0">起點 <input type="number" id="start" min="0" value="0"></label><label style="margin:0">終點 <input type="number" id="target" min="0" value="5"></label><label style="margin:0">圖類型 <select id="directed"><option value="0">無向圖</option><option value="1">有向圖</option></select></label></div><div class="actions"><button class="btn" id="build">重建並執行</button><button class="btn alt" id="clear">清空輸入</button></div><div class="error" id="error"></div><div class="note"><b>觀察重點：</b>每次 Relax（鬆弛）時，若 <code>newCost &lt; dist[next]</code>，就更新 <code>dist</code>、<code>parent</code>，並再次入隊。</div></div>
+<div class="card"><div class="row" style="justify-content:space-between"><h2>演算法播放器</h2><span class="step" id="stepLabel">尚未開始</span></div><svg id="graph" viewBox="0 0 620 340" aria-label="Dijkstra 節點圖"></svg><div class="actions"><button class="btn alt" id="first">⏮ 起點</button><button class="btn alt" id="prev">◀ 上一步</button><button class="btn" id="next">下一步 ▶</button><button class="btn alt" id="last">⏭ 最後</button><button class="btn alt" id="play">▶ 自動播放</button></div><p id="event" class="note">選擇測資，然後按下一步。</p><div class="stats"><div class="stat"><small>終點最短距離</small><strong id="answer">—</strong></div><div class="stat"><small>目前處理節點</small><strong id="current">—</strong></div><div class="stat"><small>演算法狀態</small><strong id="state">—</strong></div></div><label>PriorityQueue（顯示優先權由小到大；僅用於展示）</label><div class="queue" id="pqText">—</div><h3>dist / parent 即時追蹤</h3><div class="scroll"><table><thead><tr><th>節點</th><th>dist 最短距離</th><th>parent 前驅</th></tr></thead><tbody id="distTable"></tbody></table></div><h3>終點的一條最短路徑</h3><div class="chips" id="pathText"></div></div>
+</div><div class="card topmargin"><h2>你正在觀察什麼？</h2><div class="explain-grid"><div class="mini"><b>dist[node]</b><p>從起點到這個節點，目前已知的最低總成本。初始值是無限大，起點是 0。</p></div><div class="mini"><b>parent[node]</b><p>當距離變得更短時，記錄是從哪個節點走過來，最後可以回溯一條最短路徑。</p></div><div class="mini"><b>PriorityQueue</b><p>每次優先取出成本最低的待處理項目，不是單純先進先出。</p></div><div class="mini"><b>過期項目檢查</b><p>同一節點可能被不同成本加入佇列。若取出的舊成本不等於目前 <code>dist</code>，就略過。</p></div></div></div></section>
+<section class="lesson" id="code"><div class="card"><h2>完整 C# 萬用核心 <span class="badge">可複製</span></h2><p class="subtle">先背這一份，遇到不同題目主要改「建圖方式」和「最後輸出」。可單起點，也可用 <code>params</code> 多起點。</p><div class="codebox"><button class="btn alt copy" data-copy="core">複製程式</button><pre id="core"></pre></div><div class="note warn"><b>重要限制：</b>Dijkstra 僅能保證非負邊權下的正確最短距離。若題目有負權邊、要求最長路徑或列舉所有路徑，不能直接套。</div><h2 class="topmargin">逐段拆解</h2><details open><summary>① <code>params int[] starts</code> 是什麼？</summary><p>允許呼叫 <code>Dijkstra(graph, 0)</code> 或 <code>Dijkstra(graph, 0, 3, 5)</code>。函式裡的 <code>starts</code> 仍然是整數陣列。若只要單起點，可以改成普通 <code>int start</code>。</p></details><details><summary>② <code>graph</code> 裡到底存什麼？</summary><p><code>List&lt;(int to, long cost)&gt;[]</code> 是鄰接串列。<code>graph[u]</code> 存從 u 出發能走到哪裡，以及每條邊的成本。例如 <code>graph[0].Add((2, 7))</code> 代表 0 → 2 成本 7。</p></details><details><summary>③ 為什麼 <code>dist</code> 初始化為 <code>long.MaxValue</code>？</summary><p>表示目前還不知道有沒有路能到達該節點；只有起點為 0。演算法完成後，仍為最大值就代表不可達。</p></details><details><summary>④ 為什麼用 <code>PriorityQueue&lt;int,long&gt;</code>？</summary><p>第一個型別是存的節點，第二個是排序的優先權（成本）。Dijkstra 必須優先展開成本最低的項目，才有非負權最短路徑的保證。</p></details><details><summary>⑤ <code>currentCost != dist[current]</code> 有何用途？</summary><p>優先佇列可能同時包含某節點的舊成本 12 和新成本 5。當成本 12 的舊項目之後被取出，這一行可直接略過，避免重複展開。</p></details><details><summary>⑥ <code>newCost &lt; dist[next]</code> 為什麼是核心？</summary><p>這叫鬆弛（relaxation）。只有找到更短路徑，才更新距離與 parent。相等時不更新，因此可回溯其中一條最短路徑，但不保證指定的同分順序。</p></details><details><summary>⑦ <code>BuildPath</code> 怎麼回溯？</summary><p>從終點沿著 <code>parent[target]</code>、<code>parent[parent[target]]</code> 不斷往回走，直到起點，再 <code>Reverse()</code> 反轉。多起點時要判斷回溯抵達哪個起點，不能直接套固定單起點函式。</p></details></div></section>
+<section class="lesson" id="transform"><div class="card"><h2>八種題型，怎麼改模板？</h2><p class="subtle">點開想練的變形；所有程式都與「完整 C# 核心」搭配。以下 <code>graph</code> 範例的節點是 0-based。</p><div id="variantList"></div><div class="note"><b>考場判斷口訣：</b>每一步成本相同 → BFS 較有效率；成本不同且都非負 → Dijkstra；只能右／下的網格 → 優先考慮 DP。DFS 不一定慢，但不適合用暴力列舉路徑求一般最短路徑。</div></div></section>
+<section class="lesson" id="quiz"><div class="card"><h2>自己測驗：真的會變形嗎？</h2><p class="subtle">每題只有一個最適合的答案。作答後會看到原因；可以重新開始。</p><div id="quizArea"></div><div class="actions"><button class="btn alt" id="quizReset">重新作答</button></div></div></section>
+<div class="footer">本網頁為離線互動教學，JavaScript 模擬與 C# 範例使用相同的 Dijkstra 邏輯。教學不包含列舉所有可能路徑。</div></main>
+<script>
+const CORE = `using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static (long[] dist, int[] parent) Dijkstra(
+        List<(int to, long cost)>[] graph,
+        params int[] starts)
+    {
+        int n = graph.Length;
+        long[] dist = Enumerable.Repeat(long.MaxValue, n).ToArray();
+        int[] parent = Enumerable.Repeat(-1, n).ToArray();
+        var pq = new PriorityQueue<int, long>();
+
+        foreach (int start in starts)
+        {
+            dist[start] = 0;
+            pq.Enqueue(start, 0);
+        }
+
+        while (pq.Count > 0)
+        {
+            pq.TryDequeue(out int current, out long currentCost);
+            if (currentCost != dist[current]) continue;
+
+            foreach (var (next, cost) in graph[current])
+            {
+                long newCost = currentCost + cost;
+                if (newCost < dist[next])
+                {
+                    dist[next] = newCost;
+                    parent[next] = current;
+                    pq.Enqueue(next, newCost);
+                }
+            }
+        }
+        return (dist, parent);
+    }
+
+    static List<int> BuildPath(int[] parent, int start, int target)
+    {
+        List<int> path = new();
+        int current = target;
+        while (current != -1)
+        {
+            path.Add(current);
+            if (current == start) break;
+            current = parent[current];
+        }
+        if (path[^1] != start) return new List<int>();
+        path.Reverse();
+        return path;
+    }
+
+    static void Main()
+    {
+        int n = 5;
+        var graph = new List<(int to, long cost)>[n];
+        for (int i = 0; i < n; i++) graph[i] = new();
+        // 範例：非負加權「無向」圖
+        void AddEdge(int u, int v, long w)
+        {
+            graph[u].Add((v, w));
+            graph[v].Add((u, w));
+        }
+        AddEdge(0, 1, 4);
+        AddEdge(0, 2, 1);
+        AddEdge(2, 1, 2);
+        AddEdge(1, 3, 1);
+        AddEdge(2, 3, 5);
+        AddEdge(3, 4, 3);
+
+        var (dist, parent) = Dijkstra(graph, 0);
+        int target = 4;
+        if (dist[target] == long.MaxValue)
+            Console.WriteLine(-1);
+        else
+        {
+            Console.WriteLine(dist[target]); // 7
+            Console.WriteLine(string.Join(" ", BuildPath(parent, 0, target)));
+        }
+    }
+}`;
+document.getElementById('core').textContent=CORE;
+const presets=[
+ {name:'經典加權圖',n:6,s:0,t:5,dir:false,edges:'0 1 7\n0 2 2\n1 3 3\n2 1 1\n2 3 8\n2 4 4\n3 5 2\n4 5 3'},
+ {name:'無權圖（權重1）',n:6,s:0,t:5,dir:false,edges:'0 1 1\n0 2 1\n1 3 1\n2 3 1\n3 4 1\n4 5 1'},
+ {name:'有向圖',n:6,s:0,t:5,dir:true,edges:'0 1 9\n0 2 2\n2 1 3\n1 3 2\n2 4 4\n4 3 1\n3 5 2'},
+ {name:'無法到達',n:6,s:0,t:5,dir:false,edges:'0 1 2\n1 2 3\n3 4 1'},
+ {name:'迷宮：3×3攤平',n:9,s:0,t:8,dir:false,edges:'0 1 1\n1 2 1\n0 3 1\n3 6 1\n6 7 1\n7 8 1\n2 5 1\n5 8 1\n3 4 1\n4 5 1'}
+];
+const $=id=>document.getElementById(id);let frames=[],frameIndex=0,net=null,timer=null,presetIndex=0;
+function setPreset(i){presetIndex=i;let p=presets[i];$('edgeInput').value=p.edges;$('nodes').value=p.n;$('start').value=p.s;$('target').value=p.t;$('directed').value=p.dir?'1':'0';document.querySelectorAll('#presets button').forEach((b,j)=>b.style.borderColor=j===i?'var(--teal)':'#406582');build();}
+presets.forEach((p,i)=>{let b=document.createElement('button');b.className='chip';b.textContent=p.name;b.onclick=()=>setPreset(i);$('presets').appendChild(b)});
+function build(){stop();$('error').textContent='';try{let n=Number($('nodes').value),start=Number($('start').value),target=Number($('target').value),directed=$('directed').value==='1';if(!Number.isInteger(n)||n<1||n>40)throw Error('節點數需介於 1～40');if(!Number.isInteger(start)||start<0||start>=n||!Number.isInteger(target)||target<0||target>=n)throw Error('起點／終點必須在 0～n-1 範圍');let adj=Array.from({length:n},()=>[]),edges=[];let lines=$('edgeInput').value.split(/\r?\n/);for(let ix=0;ix<lines.length;ix++){let line=lines[ix].trim();if(!line||line.startsWith('#'))continue;let t=line.split(/[\s,]+/);if(t.length!==3)throw Error('第 '+(ix+1)+' 行須有三個數字：起點 終點 成本');let [u,v,w]=t.map(Number);if(!Number.isInteger(u)||!Number.isInteger(v)||u<0||v<0||u>=n||v>=n||!Number.isFinite(w)||w<0||!Number.isSafeInteger(w))throw Error('第 '+(ix+1)+' 行節點或成本無效（必須是非負安全整數）');adj[u].push({to:v,w});edges.push({u,v,w});if(!directed){adj[v].push({to:u,w})}}net={n,start,target,edges,directed,adj};simulate();render()}catch(e){frames=[];net=null;$('error').textContent=e.message;$('event').textContent='請修正資料後重新執行';$('graph').innerHTML='';$('distTable').innerHTML='';$('pqText').textContent='—';$('pathText').innerHTML='';$('answer').textContent='—';updateControls()}}
+function simulate(){let {n,start,adj}=net;let dist=Array(n).fill(Infinity),parent=Array(n).fill(-1),pq=[],seq=0;dist[start]=0;pq.push({node:start,cost:0,seq:seq++});frames=[];let capture=(kind,msg,current=-1,highlight=null)=>frames.push({kind,msg,current,highlight,dist:[...dist],parent:[...parent],pq:pq.map(q=>({...q})).sort((a,b)=>a.cost-b.cost||a.seq-b.seq)});capture('init',`起點 ${start} 的 dist 設為 0 並入隊。`);let limit=0;while(pq.length){if(++limit>100000)throw Error('步數過多');pq.sort((a,b)=>a.cost-b.cost||a.seq-b.seq);let item=pq.shift();let {node:cur,cost}=item;if(cost!==dist[cur]){capture('stale',`節點 ${cur} 的舊成本 ${cost} ≠ 目前 dist ${dist[cur]}，略過。`,cur);continue}capture('pop',`取出優先權最低的節點 ${cur}，目前最短成本 ${cost}。`,cur);for(let {to,w}of adj[cur]){let candidate=cost+w;if(candidate<dist[to]){let old=dist[to];dist[to]=candidate;parent[to]=cur;pq.push({node:to,cost:candidate,seq:seq++});capture('update',`從 ${cur} → ${to}（邊權 ${w}），新成本 ${candidate} 比舊成本 ${old===Infinity?'∞':old} 更小；更新 dist[${to}]、parent[${to}]。`,cur,{u:cur,v:to})}else{capture('skip',`從 ${cur} → ${to}，候選成本 ${candidate} 不小於 dist[${to}]=${dist[to]}；不更新。`,cur,{u:cur,v:to})}}}capture('done','優先佇列已空：所有可達節點的最短距離已確定。');frameIndex=0}
+function pathAt(f){let {start,target}=net;if(f.dist[target]===Infinity)return[];let a=[],cur=target;for(let i=0;i<=net.n;i++){if(cur===-1)return[];a.push(cur);if(cur===start)return a.reverse();cur=f.parent[cur]}return[]}
+function positions(n){const cx=310,cy=170,rx=240,ry=120;return Array.from({length:n},(_,i)=>{let angle=-Math.PI/2+2*Math.PI*i/n;return{x:cx+rx*Math.cos(angle),y:cy+ry*Math.sin(angle)}})}
+function render(){if(!net||!frames.length)return;let f=frames[frameIndex],{n,edges,start,target,directed}=net,coords=positions(n),onPath=f.kind==='done'?pathAt(f):[];let svg=[];svg.push('<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="15" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L8,4 L0,8" fill="#7d94b1"/></marker></defs>');edges.forEach(e=>{let a=coords[e.u],b=coords[e.v],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1,off=directed?23:0;let x1=a.x+dx/len*24,y1=a.y+dy/len*24,x2=b.x-dx/len*(24+off),y2=b.y-dy/len*(24+off),hi=f.highlight&&((f.highlight.u===e.u&&f.highlight.v===e.v)||(!directed&&f.highlight.u===e.v&&f.highlight.v===e.u));let on=onPath.some((id,i)=>i&&((onPath[i-1]===e.u&&id===e.v)||(!directed&&onPath[i-1]===e.v&&id===e.u)));let stroke=hi?'#fbbf24':on?'#5eead4':'#536783';svg.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${stroke}" stroke-width="${hi||on?3.5:1.8}" ${directed?'marker-end="url(#arr)"':''}/>`);let midx=(a.x+b.x)/2,midy=(a.y+b.y)/2;svg.push(`<rect x="${midx-15}" y="${midy-13}" width="30" height="20" rx="5" fill="#111e32"/><text x="${midx}" y="${midy+1}" text-anchor="middle" font-size="12" fill="${hi?'#fbbf24':'#c6d5ea'}">${e.w}</text>`)});coords.forEach((p,i)=>{let active=f.current===i,fill=active?'#b45309':i===start?'#2563eb':i===target?'#0f766e':'#1b314f';let stroke=onPath.includes(i)?'#5eead4':'#6a84a9';svg.push(`<circle cx="${p.x}" cy="${p.y}" r="22" fill="${fill}" stroke="${stroke}" stroke-width="${onPath.includes(i)?3:1.5}"/><text x="${p.x}" y="${p.y+5}" text-anchor="middle" fill="white" font-size="15" font-weight="700">${i}</text><text x="${p.x}" y="${p.y+39}" text-anchor="middle" fill="#c4d9f2" font-size="12">${f.dist[i]===Infinity?'∞':f.dist[i]}</text>`)});$('graph').innerHTML=svg.join('');$('stepLabel').textContent=`步驟 ${frameIndex+1} / ${frames.length}`;$('event').textContent=f.msg;$('answer').textContent=f.dist[target]===Infinity?'不可達':f.dist[target];$('current').textContent=f.current===-1?'—':f.current;$('state').textContent=f.kind==='done'?'完成':f.kind==='init'?'初始化':'執行中';$('pqText').textContent=f.pq.length?f.pq.map(q=>`(${q.node}, ${q.cost})`).join('  →  '):'空佇列';$('distTable').innerHTML=f.dist.map((v,i)=>`<tr><td>${i}${i===start?'（起點）':''}${i===target?'（終點）':''}</td><td>${v===Infinity?'∞':v}</td><td>${f.parent[i]===-1?'—':f.parent[i]}</td></tr>`).join('');$('pathText').innerHTML='';let path=pathAt(f);if(!path.length){$('pathText').textContent='目前尚未找到到達終點的路徑'}else path.forEach((v,i)=>{let c=document.createElement('span');c.className='chip';c.textContent=(i?'→ ':'')+v;$('pathText').appendChild(c)});updateControls()}
+function updateControls(){$('first').disabled=!frames.length||frameIndex===0;$('prev').disabled=!frames.length||frameIndex===0;$('next').disabled=!frames.length||frameIndex===frames.length-1;$('last').disabled=!frames.length||frameIndex===frames.length-1}
+function stop(){if(timer){clearInterval(timer);timer=null}$('play').textContent='▶ 自動播放'}
+$('build').onclick=build;$('clear').onclick=()=>{$('edgeInput').value='';build()};$('first').onclick=()=>{stop();frameIndex=0;render()};$('prev').onclick=()=>{stop();frameIndex=Math.max(0,frameIndex-1);render()};$('next').onclick=()=>{stop();frameIndex=Math.min(frames.length-1,frameIndex+1);render()};$('last').onclick=()=>{stop();frameIndex=frames.length-1;render()};$('play').onclick=()=>{if(timer){stop();return}if(frameIndex>=frames.length-1)frameIndex=0;$('play').textContent='⏸ 暫停';timer=setInterval(()=>{if(frameIndex<frames.length-1){frameIndex++;render()}else stop()},450)};
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{stop();document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.lesson').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab))});
+document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText(CORE);b.textContent='已複製 ✓';setTimeout(()=>b.textContent='複製程式',1200)}catch(e){let ta=document.createElement('textarea');ta.value=CORE;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();b.textContent='已複製 ✓'}});
+const variants=[
+ {name:'1｜無權圖：每條邊都設成 1',desc:'最少邊數 = 最少步數。Dijkstra 能解，但純無權圖用 BFS 通常更快。',code:'graph[u].Add((v, 1));\n// 無向圖再加：\ngraph[v].Add((u, 1));'},
+ {name:'2｜加權圖：使用題目提供的非負成本',desc:'成本不同時，不應直接用一般 BFS。',code:'graph[u].Add((v, weight));\n// weight >= 0'},
+ {name:'3｜有向 vs. 無向圖',desc:'有向圖只加 u→v；無向圖要雙向加入。',code:'// 有向\ngraph[u].Add((v, weight));\n\n// 無向：另外加反方向\ngraph[v].Add((u, weight));'},
+ {name:'4｜二維迷宮：座標轉節點 + 四方向',desc:'二維座標 (r,c) 攤平成 id = r*cols+c。障礙格跳過，成本看題意。',code:'int[] dr = { 1, -1, 0, 0 };\nint[] dc = { 0, 0, 1, -1 };\nint from = r * cols + c;\nfor (int k = 0; k < 4; k++)\n{\n    int nr = r + dr[k], nc = c + dc[k];\n    if (nr < 0 || nr >= rows || nc < 0 || nc >= cols) continue;\n    if (grid[nr, nc] == -1) continue; // 牆\n    int to = nr * cols + nc;\n    graph[from].Add((to, 1)); // 每步成本為 1\n}'},
+ {name:'5｜三維迷宮：六方向',desc:'使用 (z*rows+r)*cols+c 對應節點編號。',code:'int id = (z * rows + r) * cols + c;\nint[] dz = { 1,-1, 0, 0, 0, 0 };\nint[] dr = { 0, 0, 1,-1, 0, 0 };\nint[] dc = { 0, 0, 0, 0, 1,-1 };\n// 檢查 z/r/c 三軸界限與障礙後建邊'},
+ {name:'6｜只要距離或可達性：用 dist',desc:'只要距離就不必使用 BuildPath；不可達以 long.MaxValue 判斷。',code:'var (dist, _) = Dijkstra(graph, start);\nConsole.WriteLine(dist[target] == long.MaxValue ? -1 : dist[target]);\nbool reachable = dist[target] != long.MaxValue;'},
+ {name:'7｜一條最短路徑：用 parent 回溯',desc:'注意僅回溯一條，不會列舉所有可能路徑。',code:'var (dist, parent) = Dijkstra(graph, start);\nif (dist[target] != long.MaxValue)\n{\n    var path = BuildPath(parent, start, target);\n    Console.WriteLine(string.Join(" ", path));\n}'},
+ {name:'8｜多起點／找最遠的最短距離',desc:'多起點傳入多個開始節點；找最遠距離時要忽略不可達值。',code:'// 最近起點距離\nvar (dist, parent) = Dijkstra(graph, 0, 3, 5);\n\n// 求從這些起點出發，最遠的「可達最短距離」\nlong farthest = dist.Where(d => d != long.MaxValue).Max();\n// 這不是一般圖的最長簡單路徑'}
+];
+variants.forEach((v,i)=>{let d=document.createElement('details');if(i===0)d.open=true;let s=document.createElement('summary');s.textContent=v.name;let p=document.createElement('p');p.textContent=v.desc;let pre=document.createElement('pre');pre.textContent=v.code;d.append(s,p,pre);$('variantList').appendChild(d)});
+const qs=[
+ {q:'無權圖只有 0→1→2，每條邊成本 1，從 0 到 2 的 dist 是？',opts:['1','2','3'],ans:1,why:'需要走兩條邊，因此 dist[2] = 2。'},
+ {q:'Dijkstra 的 PriorityQueue 為什麼要帶 cost？',opts:['讓成本最小的項目先處理','用來儲存所有路徑','保證每個節點只入隊一次'],ans:0,why:'優先佇列按照成本排序，同一節點仍可能多次入隊。'},
+ {q:'發現到節點 4 的新成本 7，原本 dist[4] = 10，該怎麼做？',opts:['維持 10','更新成 7，記錄 parent 並入隊','直接結束演算法'],ans:1,why:'新成本更低，應進行鬆弛。'},
+ {q:'想把 5×4 網格的 (r=2,c=3) 轉成 id，是多少？',opts:['11','14','13'],ans:0,why:'id = r*cols+c = 2*4+3 = 11。'},
+ {q:'題目有負權重邊，可以直接套這份 Dijkstra 嗎？',opts:['可以，設成負數即可','不行，需要另外選演算法','只要 parent 不用就可以'],ans:1,why:'一般 Dijkstra 依賴非負邊權，負權邊下不保證正確。'},
+ {q:'兩個起點 0 和 5，想求每個節點到最近起點的最短距離，如何初始化？',opts:['只讓 0 入隊','兩個起點都設 dist=0 並入隊','先跑 DFS 才能 Dijkstra'],ans:1,why:'這是多源最短路徑，兩個起點都以距離 0 加入優先佇列。'},
+ {q:'在一般無權大圖上只求最少邊數，效率通常最好的選擇是？',opts:['DFS 暴力列舉所有路徑','BFS','一定要 Dijkstra'],ans:1,why:'BFS 為 O(V+E)，在無權圖中比使用優先佇列的 Dijkstra 更簡潔有效率。'}
+];let answers={};function renderQuiz(){let root=$('quizArea');root.innerHTML='';qs.forEach((q,i)=>{let wrap=document.createElement('div');wrap.className='mini';wrap.style.margin='12px 0';let head=document.createElement('h3');head.textContent=`第 ${i+1} 題｜${q.q}`;wrap.appendChild(head);q.opts.forEach((opt,j)=>{let btn=document.createElement('button');btn.className='quizopt';btn.textContent=`${'ABC'[j]}. ${opt}`;btn.disabled=answers[i]!==undefined;if(answers[i]===j)btn.style.borderColor=j===q.ans?'var(--teal)':'var(--pink)';btn.onclick=()=>{answers[i]=j;renderQuiz()};wrap.appendChild(btn)});if(answers[i]!==undefined){let result=document.createElement('div');result.className='result';result.textContent=(answers[i]===q.ans?'✓ 正確！':'✗ 再記一下。')+' '+q.why;wrap.appendChild(result)}root.appendChild(wrap)});let done=Object.keys(answers).length;if(done===qs.length){let score=qs.filter((q,i)=>answers[i]===q.ans).length;let p=document.createElement('div');p.className='note';p.textContent=`完成！答對 ${score} / ${qs.length} 題。` ;root.appendChild(p)}}$('quizReset').onclick=()=>{answers={};renderQuiz()};renderQuiz();setPreset(0);
+</script>
+</body></html>
